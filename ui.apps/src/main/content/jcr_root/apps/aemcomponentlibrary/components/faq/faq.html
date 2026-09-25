@@ -1,0 +1,10 @@
+<sly data-sly-use.faq="com.prasanta.aemcomponentlibrary.core.models.FaqModel" />
+<sly data-sly-use.clientlib="core/wcm/components/commons/v1/templates/clientlib.html" data-sly-call="${clientlib.css @ categories='aemcomponentlibrary.faq'}" />
+<sly data-sly-call="${clientlib.js @ categories='aemcomponentlibrary.faq'}" />
+<section class="aemcl-faq" data-sly-test="${faq.items.size > 0 || wcmmode.edit}">
+    <input data-sly-test="${faq.searchEnabled}" class="aemcl-faq__search" type="search" placeholder="Search questions" aria-label="Search questions">
+    <div data-sly-list.item="${faq.items}" class="aemcl-faq__items">
+        <details class="aemcl-faq__item" data-question="${item.question}"><summary>${item.question}</summary><div class="aemcl-faq__answer">${item.answer @ context='html'}</div></details>
+    </div>
+    <div data-sly-test="${faq.items.size == 0 && wcmmode.edit}" class="cq-placeholder" data-emptytext="FAQ"></div>
+</section>

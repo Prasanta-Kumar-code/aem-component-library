@@ -1,124 +1,101 @@
-# Sample AEM project template
+# AEM Component Library
 
-This is a project template for AEM-based applications. It is intended as a best-practice set of examples as well as a potential starting point to develop your own functionality.
+![Build](https://github.com/prasanta/aem-component-library/actions/workflows/build.yml/badge.svg)
+![AEM as a Cloud Service](https://img.shields.io/badge/AEM-Cloud%20Service-ff0000)
+![Java 17](https://img.shields.io/badge/Java-17-007396)
+![License](https://img.shields.io/badge/license-Apache--2.0-blue)
 
-## Modules
+Enterprise-grade Adobe Experience Manager component accelerator built with AEM as a Cloud Service, Sling Models, HTL, OSGi, Java 17, and Core Components. It is designed for AEM Developers, Java Developers, and Adobe Certified Developers who need a maintainable Cloud Manager delivery baseline.
 
-The main parts of the template are:
+## Project Structure
 
-* [core:](core/README.md) Java bundle containing all core functionality like OSGi services, listeners or schedulers, as well as component-related Java code such as servlets or request filters.
-* [it.tests:](it.tests/README.md) Java based integration tests
-* [ui.apps:](ui.apps/README.md) contains the /apps (and /etc) parts of the project, ie JS&CSS clientlibs, components, and templates
-* [ui.content:](ui.content/README.md) contains sample content using the components from the ui.apps
-* ui.config: contains runmode specific OSGi configs for the project
-* [ui.frontend:](ui.frontend.general/README.md) an optional dedicated front-end build mechanism (Angular, React or general Webpack project)
-* [ui.tests:](ui.tests/README.md) Cypress based UI tests (for other frameworks check [aem-test-samples](https://github.com/adobe/aem-test-samples) repository
-* all: a single content package that embeds all of the compiled modules (bundles and content packages) including any vendor dependencies
-* analyse: this module runs analysis on the project which provides additional validation for deploying into AEMaaCS
+```text
+core/                 Sling Models, services, and Java business logic
+ui.apps/              Components, dialogs, clientlibs, and templates
+ui.content/           Mutable sample content
+ui.config/            OSGi configurations
+all/                  Deployable aggregate package
+docs/                 Architecture and component guides
+.github/workflows/    GitHub Actions build validation
+```
 
-## How to build
+## Architecture
 
-To build all the modules run in the project root directory the following command with Maven 3:
+```mermaid
+flowchart LR
+    Author[Author] -->|Touch UI| UI[ui.apps]
+    UI -->|HTL + clientlibs| Publish[AEM Cloud Service]
+    UI --> Core[core OSGi bundle]
+    Core --> Models[Sling Models]
+    Models --> Publish
+    GitHub[GitHub Actions] -->|Maven build and tests| Packages[all package]
+    Packages --> Cloud[Cloud Manager]
+```
 
-    mvn clean install
+## Installation
 
-To build all the modules and deploy the `all` package to a local instance of AEM, run in the project root directory the following command:
+Requirements: Java 17, Maven 3.3.9 or later, and an AEM as a Cloud Service SDK for local deployment.
 
-    mvn clean install -PautoInstallSinglePackage
+```powershell
+git clone https://github.com/prasanta/aem-component-library.git
+cd aem-component-library
+mvn clean install
+```
 
-Or to deploy it to a publish instance, run
+## Build and Deployment
 
-    mvn clean install -PautoInstallSinglePackagePublish
+```powershell
+# Build and test
+mvn clean verify
 
-Or alternatively
+# Deploy the aggregate package to a local author
+mvn clean install -PautoInstallSinglePackage
 
-    mvn clean install -PautoInstallSinglePackage -Daem.port=4503
+# Deploy only the OSGi bundle
+mvn clean install -pl core -PautoInstallBundle
+```
 
-Or to deploy only the bundle to the author, run
+Production deployments use the repository's Cloud Manager Full Stack Pipeline. No AWS, Azure, Vercel, or third-party server is required.
 
-    mvn clean install -PautoInstallBundle
+## Components
 
-Or to deploy only a single content package, run in the sub-module directory (i.e `ui.apps`)
+| Component | Implementation | Guide |
+| --- | --- | --- |
+| Text | Core Text v2 extension with RTE and styles | [Text guide](docs/component-guides/text-component.md) |
+| Image | Core Image v3 extension with DAM and responsive delivery | [Image guide](docs/component-guides/image-component.md) |
+| Button | Core Button v2 extension with link and style policies | [Button guide](docs/component-guides/button-component.md) |
+| Hero Banner | Sling Model, background image, CTA, alignment | [Hero guide](docs/component-guides/hero-banner-component.md) |
+| Accordion | Multifield items and disclosure interaction | [Accordion guide](docs/component-guides/accordion-component.md) |
+| Tabs | Multifield panels and active tab | [Tabs guide](docs/component-guides/tabs-component.md) |
+| FAQ | Multifield questions with optional search | [FAQ guide](docs/component-guides/faq-component.md) |
+| Card Grid | DAM cards with 2/3/4-column variants | [Card Grid guide](docs/component-guides/card-grid-component.md) |
 
-    mvn clean install -PautoInstallPackage
+## Screenshots
 
-## Documentation
-
-The build process also generates documentation in the form of README.md files in each module directory for easy reference. Depending on the options you select at build time, the content may be customized to your project.
+Published and author screenshots belong under `docs/screenshots/`. Component-specific screenshot folders are referenced by each guide.
 
 ## Testing
 
-There are three levels of testing contained in the project:
+Unit tests run in `core`; HTL and FileVault validation run while packaging `ui.apps`; GitHub Actions runs `mvn clean verify -DskipITs` on pushes, pull requests, and every Sunday.
 
-### Unit tests
+## Git Strategy
 
-This show-cases classic unit testing of the code contained in the bundle. To
-test, execute:
+```powershell
+git switch -c feature/text-component
+git switch -c feature/image-component
+git switch -c feature/button-component
+git switch -c feature/hero-banner
+git switch -c feature/accordion
+git switch -c feature/tabs
+git switch -c feature/faq
+git switch -c feature/card-grid
+```
 
-    mvn clean test
+Use focused commits such as `feat(text): extend Core Text component`. Open pull requests into `main`, require the Actions build, squash merge approved work, and tag releases after Cloud Manager validation: `v1.0.0` for the initial accelerator, `v1.1.0` for compatible component enhancements, and `v2.0.0` for breaking API or content-structure changes.
 
-### Integration tests
+## Roadmap
 
-This allows running integration tests that exercise the capabilities of AEM via
-HTTP calls to its API. To run the integration tests, run:
-
-    mvn clean verify -Plocal
-
-Test classes must be saved in the `src/main/java` directory (or any of its
-subdirectories), and must be contained in files matching the pattern `*IT.java`.
-
-The configuration provides sensible defaults for a typical local installation of
-AEM. If you want to point the integration tests to different AEM author and
-publish instances, you can use the following system properties via Maven's `-D`
-flag.
-
-| Property              | Description                                         | Default value           |
-|-----------------------|-----------------------------------------------------|-------------------------|
-| `it.author.url`       | URL of the author instance                          | `http://localhost:4502` |
-| `it.author.user`      | Admin user for the author instance                  | `admin`                 |
-| `it.author.password`  | Password of the admin user for the author instance  | `admin`                 |
-| `it.publish.url`      | URL of the publish instance                         | `http://localhost:4503` |
-| `it.publish.user`     | Admin user for the publish instance                 | `admin`                 |
-| `it.publish.password` | Password of the admin user for the publish instance | `admin`                 |
-
-The integration tests in this archetype use the [AEM Testing
-Clients](https://github.com/adobe/aem-testing-clients) and showcase some
-recommended [best
-practices](https://github.com/adobe/aem-testing-clients/wiki/Best-practices) to
-be put in use when writing integration tests for AEM.
-
-## Static Analysis
-
-The `analyse` module performs static analysis on the project for deploying into AEMaaCS. It is automatically
-run when executing
-
-    mvn clean install
-
-from the project root directory. Additional information about this analysis and how to further configure it
-can be found here https://github.com/adobe/aemanalyser-maven-plugin
-
-### UI tests
-
-They will test the UI layer of your AEM application using Cypress framework.
-
-Check README file in `ui.tests` module for more details.
-
-Examples of UI tests in different frameworks can be found here: https://github.com/adobe/aem-test-samples
-
-## ClientLibs
-
-The frontend module is made available using an [AEM ClientLib](https://helpx.adobe.com/experience-manager/6-5/sites/developing/using/clientlibs.html). When executing the NPM build script, the app is built and the [`aem-clientlib-generator`](https://github.com/wcm-io-frontend/aem-clientlib-generator) package takes the resulting build output and transforms it into such a ClientLib.
-
-A ClientLib will consist of the following files and directories:
-
-- `css/`: CSS files which can be requested in the HTML
-- `css.txt` (tells AEM the order and names of files in `css/` so they can be merged)
-- `js/`: JavaScript files which can be requested in the HTML
-- `js.txt` (tells AEM the order and names of files in `js/` so they can be merged
-- `resources/`: Source maps, non-entrypoint code chunks (resulting from code splitting), static assets (e.g. icons), etc.
-
-## Maven settings
-
-The project comes with the auto-public repository configured. To setup the repository in your Maven settings, refer to:
-
-    http://helpx.adobe.com/experience-manager/kb/SetUpTheAdobeMavenRepository.html
+- Add component policy examples and editable template documentation.
+- Add focused Sling Model unit tests for multifield mapping.
+- Add Cypress coverage for author and published component behavior.
+- Add accessibility and visual regression gates to the UI test module.

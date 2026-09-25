@@ -1,0 +1,11 @@
+<sly data-sly-use.accordion="com.prasanta.aemcomponentlibrary.core.models.AccordionModel" />
+<sly data-sly-use.clientlib="core/wcm/components/commons/v1/templates/clientlib.html" data-sly-call="${clientlib.css @ categories='aemcomponentlibrary.accordion'}" />
+<section class="aemcl-accordion" data-sly-test="${accordion.items.size > 0 || wcmmode.edit}">
+    <div data-sly-list.item="${accordion.items}">
+        <details class="aemcl-accordion__item">
+            <summary>${item.title}</summary>
+            <div class="aemcl-accordion__content">${item.content @ context='html'}</div>
+        </details>
+    </div>
+    <div data-sly-test="${accordion.items.size == 0 && wcmmode.edit}" class="cq-placeholder" data-emptytext="Accordion"></div>
+</section>

@@ -1,0 +1,12 @@
+<sly data-sly-use.hero="com.prasanta.aemcomponentlibrary.core.models.HeroBannerModel" />
+<sly data-sly-use.clientlib="core/wcm/components/commons/v1/templates/clientlib.html" data-sly-call="${clientlib.css @ categories='aemcomponentlibrary.hero-banner'}" />
+<section class="aemcl-hero-banner aemcl-hero-banner--${hero.alignment}"
+         data-sly-test.configured="${hero.configured}"
+         style="background-image: url('${hero.backgroundImage @ context='uri'}')">
+    <div class="aemcl-hero-banner__content">
+        <h2 data-sly-test="${hero.title}">${hero.title}</h2>
+        <p data-sly-test="${hero.description}">${hero.description}</p>
+        <a data-sly-test="${hero.ctaText && hero.ctaLink}" class="aemcl-hero-banner__cta" href="${hero.ctaLink}">${hero.ctaText}</a>
+    </div>
+</section>
+<div data-sly-test="${!configured && wcmmode.edit}" class="cq-placeholder" data-emptytext="Hero Banner"></div>
