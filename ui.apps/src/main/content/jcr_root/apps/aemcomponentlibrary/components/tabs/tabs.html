@@ -1,0 +1,9 @@
+<sly data-sly-use.tabs="com.prasanta.aemcomponentlibrary.core.models.TabsModel" />
+<sly data-sly-use.clientlib="core/wcm/components/commons/v1/templates/clientlib.html" data-sly-call="${clientlib.css @ categories='aemcomponentlibrary.tabs'}" />
+<sly data-sly-call="${clientlib.js @ categories='aemcomponentlibrary.tabs'}" />
+<section class="aemcl-tabs" data-sly-test="${tabs.items.size > 0 || wcmmode.edit}">
+    <div class="aemcl-tabs__list" role="tablist" data-sly-list.item="${tabs.items}">
+        <button class="aemcl-tabs__tab" type="button" role="tab" aria-selected="${itemList.index == tabs.activeTab}" data-tab-index="${itemList.index}">${item.title}</button>
+    </div>
+    <div class="aemcl-tabs__panels" data-sly-list.item="${tabs.items}"><div class="aemcl-tabs__panel" role="tabpanel" data-tab-panel="${itemList.index}">${item.content @ context='html'}</div></div>
+</section>

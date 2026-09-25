@@ -1,0 +1,9 @@
+<sly data-sly-use.grid="com.prasanta.aemcomponentlibrary.core.models.CardGridModel" />
+<sly data-sly-use.clientlib="core/wcm/components/commons/v1/templates/clientlib.html" data-sly-call="${clientlib.css @ categories='aemcomponentlibrary.card-grid'}" />
+<section class="aemcl-card-grid ${grid.gridClass}" data-sly-test="${grid.cards.size > 0 || wcmmode.edit}">
+    <article data-sly-list.card="${grid.cards}" class="aemcl-card-grid__card">
+        <img data-sly-test="${card.image}" class="aemcl-card-grid__image" src="${card.image}" alt="${card.title}" loading="lazy">
+        <div class="aemcl-card-grid__body"><h3 data-sly-test="${card.title}">${card.title}</h3><p data-sly-test="${card.description}">${card.description}</p><a data-sly-test="${card.ctaText && card.ctaLink}" href="${card.ctaLink}">${card.ctaText}</a></div>
+    </article>
+    <div data-sly-test="${grid.cards.size == 0 && wcmmode.edit}" class="cq-placeholder" data-emptytext="Card Grid"></div>
+</section>
