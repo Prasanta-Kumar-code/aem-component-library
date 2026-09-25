@@ -1,8 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/1.0"
-    jcr:primaryType="nt:unstructured" jcr:title="Card Grid" sling:resourceType="cq/gui/components/authoring/dialog">
-    <content jcr:primaryType="nt:unstructured" sling:resourceType="granite/ui/components/coral/foundation/container"><items jcr:primaryType="nt:unstructured">
-        <columns jcr:primaryType="nt:unstructured" sling:resourceType="granite/ui/components/coral/foundation/form/select" fieldLabel="Grid Variant" name="./columns"><items jcr:primaryType="nt:unstructured"><two jcr:primaryType="nt:unstructured" text="2 Columns" value="two"/><three jcr:primaryType="nt:unstructured" text="3 Columns" value="three"/><four jcr:primaryType="nt:unstructured" text="4 Columns" value="four"/></items></columns>
-        <cards jcr:primaryType="nt:unstructured" sling:resourceType="granite/ui/components/coral/foundation/form/multifield" fieldLabel="Cards" composite="{Boolean}true"><field jcr:primaryType="nt:unstructured" sling:resourceType="granite/ui/components/coral/foundation/container" name="./cards"><items jcr:primaryType="nt:unstructured"><image jcr:primaryType="nt:unstructured" sling:resourceType="granite/ui/components/coral/foundation/form/pathfield" fieldLabel="Image" name="image" rootPath="/content/dam"/><title jcr:primaryType="nt:unstructured" sling:resourceType="granite/ui/components/coral/foundation/form/textfield" fieldLabel="Title" name="title"/><description jcr:primaryType="nt:unstructured" sling:resourceType="granite/ui/components/coral/foundation/form/textarea" fieldLabel="Description" name="description"/><ctaText jcr:primaryType="nt:unstructured" sling:resourceType="granite/ui/components/coral/foundation/form/textfield" fieldLabel="CTA Text" name="ctaText"/><ctaLink jcr:primaryType="nt:unstructured" sling:resourceType="granite/ui/components/coral/foundation/form/pathfield" fieldLabel="CTA Link" name="ctaLink" rootPath="/content"/></items></field></cards>
-    </items></content>
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0" jcr:primaryType="nt:unstructured" jcr:title="Card Grid" sling:resourceType="cq/gui/components/authoring/dialog">
+    <content jcr:primaryType="nt:unstructured" sling:resourceType="granite/ui/components/coral/foundation/container">
+        <items jcr:primaryType="nt:unstructured">
+            <columns jcr:primaryType="nt:unstructured" sling:resourceType="granite/ui/components/coral/foundation/form/select" fieldLabel="Grid Variant" name="./columns">
+                <items jcr:primaryType="nt:unstructured">
+                    <two jcr:primaryType="nt:unstructured" text="2 Columns" value="two"/>
+                    <three jcr:primaryType="nt:unstructured" text="3 Columns" value="three"/>
+                    <four jcr:primaryType="nt:unstructured" text="4 Columns" value="four"/>
+                </items>
+            </columns>
+            <cards jcr:primaryType="nt:unstructured" sling:resourceType="granite/ui/components/coral/foundation/form/multifield" fieldLabel="Cards" composite="{Boolean}true">
+                <field jcr:primaryType="nt:unstructured" sling:resourceType="granite/ui/components/coral/foundation/container" name="./cards">
+                    <items jcr:primaryType="nt:unstructured">
+                        <image jcr:primaryType="nt:unstructured" sling:resourceType="granite/ui/components/coral/foundation/form/pathfield" fieldLabel="Image" name="image" rootPath="/content/dam"/>
+                        <title jcr:primaryType="nt:unstructured" sling:resourceType="granite/ui/components/coral/foundation/form/textfield" fieldLabel="Title" name="title"/>
+                        <description jcr:primaryType="nt:unstructured" sling:resourceType="granite/ui/components/coral/foundation/form/textarea" fieldLabel="Description" name="description"/>
+                        <ctaText jcr:primaryType="nt:unstructured" sling:resourceType="granite/ui/components/coral/foundation/form/textfield" fieldLabel="CTA Text" name="ctaText"/>
+                        <ctaLink jcr:primaryType="nt:unstructured" sling:resourceType="granite/ui/components/coral/foundation/form/pathfield" fieldLabel="CTA Link" name="ctaLink" rootPath="/content"/>
+                    </items>
+                </field>
+            </cards>
+        </items>
+    </content>
 </jcr:root>
