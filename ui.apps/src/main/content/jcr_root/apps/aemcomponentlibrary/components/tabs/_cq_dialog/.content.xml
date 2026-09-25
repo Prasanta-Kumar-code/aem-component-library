@@ -1,8 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/1.0"
-    jcr:primaryType="nt:unstructured" jcr:title="Tabs" sling:resourceType="cq/gui/components/authoring/dialog">
-    <content jcr:primaryType="nt:unstructured" sling:resourceType="granite/ui/components/coral/foundation/container"><items jcr:primaryType="nt:unstructured">
-        <activeTab jcr:primaryType="nt:unstructured" sling:resourceType="granite/ui/components/coral/foundation/form/numberfield" fieldLabel="Active Tab" name="./activeTab" min="0"/>
-        <items jcr:primaryType="nt:unstructured" sling:resourceType="granite/ui/components/coral/foundation/form/multifield" fieldLabel="Tabs" composite="{Boolean}true"><field jcr:primaryType="nt:unstructured" sling:resourceType="granite/ui/components/coral/foundation/container" name="./items"><items jcr:primaryType="nt:unstructured"><title jcr:primaryType="nt:unstructured" sling:resourceType="granite/ui/components/coral/foundation/form/textfield" fieldLabel="Tab Title" name="title"/><content jcr:primaryType="nt:unstructured" sling:resourceType="granite/ui/components/coral/foundation/form/textarea" fieldLabel="Tab Content" name="content"/></items></field></items>
-    </items></content>
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0" jcr:primaryType="nt:unstructured" jcr:title="Tabs" sling:resourceType="cq/gui/components/authoring/dialog">
+    <content jcr:primaryType="nt:unstructured" sling:resourceType="granite/ui/components/coral/foundation/container">
+        <items jcr:primaryType="nt:unstructured">
+            <activeTab jcr:primaryType="nt:unstructured" sling:resourceType="granite/ui/components/coral/foundation/form/numberfield" fieldLabel="Active Tab" name="./activeTab" min="0"/>
+            <tabItems jcr:primaryType="nt:unstructured" sling:resourceType="granite/ui/components/coral/foundation/form/multifield" fieldLabel="Tabs" composite="{Boolean}true">
+                <field jcr:primaryType="nt:unstructured" sling:resourceType="granite/ui/components/coral/foundation/container" name="./items">
+                    <items jcr:primaryType="nt:unstructured">
+                        <title jcr:primaryType="nt:unstructured" sling:resourceType="granite/ui/components/coral/foundation/form/textfield" fieldLabel="Tab Title" name="title"/>
+                        <content jcr:primaryType="nt:unstructured" sling:resourceType="granite/ui/components/coral/foundation/form/textarea" fieldLabel="Tab Content" name="content"/>
+                    </items>
+                </field>
+            </tabItems>
+        </items>
+    </content>
 </jcr:root>
